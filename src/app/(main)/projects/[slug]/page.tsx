@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // This function tells Next.js which pages to pre-render at build time
@@ -15,11 +15,12 @@ export async function generateStaticParams() {
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
+  const { slug } = await params;
   const supabase = await createClient();
   const { data } = await supabase
     .from('projects')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', slug)
     .single();
 
   const project = data as Project;
