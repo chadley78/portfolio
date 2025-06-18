@@ -6,24 +6,20 @@ import CategoryPill from './CategoryPill';
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={`/projects/${project.slug}`} className="border border-[#242424]/20 rounded-lg overflow-hidden block hover:shadow-lg transition-shadow bg-white">
-      {project.thumbnail_url && (
+      <div className="relative h-64">
         <Image
-          src={project.thumbnail_url}
+          src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
           alt={project.title}
-          width={400}
-          height={300}
-          className="w-full h-48 sm:h-56 lg:h-64 object-cover"
+          fill
+          className="object-cover"
         />
-      )}
-      <div className="p-6 sm:p-8">
-        <h3 className="font-black text-2xl sm:text-3xl md:text-4xl text-[#242424] uppercase tracking-tight leading-tight mb-4">
+      </div>
+      <div className="p-6">
+        <h3 className="font-black text-2xl sm:text-3xl text-[#242424] uppercase tracking-tight leading-tight mb-4">
           {project.title}
         </h3>
-        <p className="text-lg sm:text-xl md:text-2xl text-[#242424]/80 font-normal leading-relaxed mb-4">
-          {project.description}
-        </p>
         {project.categories && (
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="flex flex-wrap gap-2">
             {project.categories.map((category, index) => (
               <CategoryPill key={index} category={category} />
             ))}

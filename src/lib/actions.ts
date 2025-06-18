@@ -2,11 +2,24 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
+import { Project } from "@/types";
 
 type FormState = {
   error: string | null;
   success: string | null;
 };
+
+export async function getProjects(): Promise<Project[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('projects').select('*');
+  
+  if (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
+  
+  return data as Project[] || [];
+}
 
 export async function submitContactForm(prevState: FormState, formData: FormData): Promise<FormState> {
   const supabase = await createClient();
