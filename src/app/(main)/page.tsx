@@ -53,11 +53,11 @@ export default function HomePage() {
         {
           id: 2,
           created_at: "2024-01-02T00:00:00Z",
-          title: "Project Beta",
-          slug: "project-beta",
-          description: "Digital transformation initiative",
+          title: "AI Roleplay",
+          slug: "ai-roleplay",
+          description: "Revolutionizing Learning Through AI-Powered Roleplay Experiences",
           content: "Project content here",
-          categories: ["Technology", "Innovation"],
+          categories: ["AI/ML", "Product Design", "UX Research"],
           thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
         },
         {
