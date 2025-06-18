@@ -6,4 +6,5 @@ export interface Project {
   description: string | null;
   thumbnail_url: string | null;
   content: string | null;
+  categories?: string[] | null;
 } 
