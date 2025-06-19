@@ -1,22 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import ProjectCard from "@/components/ProjectCard";
-import { Project } from "@/types";
-import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import CategoryPill from "@/components/CategoryPill";
+import { Project } from "@/types";
 
 export default function HomePage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [animatedWords, setAnimatedWords] = useState<string[]>([]);
-  const [showImages, setShowImages] = useState(false);
   const [showH3, setShowH3] = useState(false);
 
-  const words = ["Obsessed", "with", "impact"];
+  const words = useMemo(() => ["Obsessed", "with", "impact"], []);
 
   useEffect(() => {
     // Animate words one by one
@@ -25,31 +22,17 @@ export default function HomePage() {
       if (currentIndex < words.length) {
         setAnimatedWords(words.slice(0, currentIndex + 1));
         currentIndex++;
-        setTimeout(animateWords, 200); // 200ms delay between each word (was 400ms)
+        setTimeout(animateWords, 200);
       } else {
-        // After all words are done, show H3
-        setTimeout(() => setShowH3(true), 200); // 200ms delay after words finish
+        setTimeout(() => setShowH3(true), 200);
       }
     };
-    
-    // Start animation after a brief delay
-    setTimeout(animateWords, 150); // 150ms delay (was 300ms)
-  }, []);
+    setTimeout(animateWords, 150);
+  }, [words]);
 
   useEffect(() => {
     async function fetchProjects() {
-      // Temporarily use placeholder data to show new projects and pills
       setProjects([
-        {
-          id: 1,
-          created_at: "2024-01-01T00:00:00Z",
-          title: "Cotopaxi",
-          slug: "project-alpha",
-          description: "Marketing Mix Modeling Unlocks 20%+ New Business Growth",
-          content: "Project content here",
-          categories: ["Leadership", "Strategy"],
-          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-        },
         {
           id: 2,
           created_at: "2024-01-02T00:00:00Z",
@@ -58,6 +41,26 @@ export default function HomePage() {
           description: "Revolutionizing Learning Through AI-Powered Roleplay Experiences",
           content: "Project content here",
           categories: ["AI/ML", "Product Design", "UX Research"],
+          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+        },
+        {
+          id: 5,
+          created_at: "2024-01-05T00:00:00Z",
+          title: "Udemy Business",
+          slug: "udemy-business",
+          description: "How User-Centered Design Scaled a B2B Learning Platform from $5M to $500M",
+          content: "Project content here",
+          categories: ["B2B Design", "Product Design", "UX Research", "Leadership", "Growth"],
+          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+        },
+        {
+          id: 1,
+          created_at: "2024-01-01T00:00:00Z",
+          title: "Cotopaxi",
+          slug: "project-alpha",
+          description: "Marketing Mix Modeling Unlocks 20%+ New Business Growth",
+          content: "Project content here",
+          categories: ["Leadership", "Strategy"],
           thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
         },
         {
@@ -82,30 +85,7 @@ export default function HomePage() {
         }
       ]);
       setLoading(false);
-      
-      // Commented out Supabase fetch for now
-      /*
-      try {
-        const supabase = createClient();
-        const { data, error } = await supabase.from('projects').select('*');
-        
-        if (error) {
-          console.error("Error fetching projects:", error);
-          // Use placeholder data if fetch fails
-          setProjects([...]);
-        } else {
-          setProjects(data || []);
-        }
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-        // Use placeholder data if fetch fails
-        setProjects([...]);
-      } finally {
-        setLoading(false);
-      }
-      */
     }
-
     fetchProjects();
   }, []);
 
@@ -160,7 +140,7 @@ export default function HomePage() {
               }}
               className="text-xl sm:text-2xl md:text-3xl lg:text-[1.4rem] xl:text-[1.9rem] font-bold text-[#FAF2E8]/90 leading-tight"
             >
-              Welcome to Darragh's portfolio
+              Welcome to Darragh&apos;s portfolio
             </motion.h3>
           </div>
 
@@ -228,7 +208,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[3rem] font-medium text-[#242424]/80 mb-12 sm:mb-16 lg:mb-20 leading-tight text-center max-w-4xl mx-auto"
             >
-              As a product design director I've created, iterated, destroyed and redesigned. Products, teams and processes
+              As a product design director I&apos;ve created, iterated, destroyed and redesigned. Products, teams and processes
             </motion.h2>
           </div>
           
@@ -242,7 +222,7 @@ export default function HomePage() {
             </motion.div>
           ) : (
             <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-              {projects.map((project, index) => (
+              {projects.map((project) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 50 }}
@@ -260,49 +240,67 @@ export default function HomePage() {
                       {/* Image Section - Centered in first 50% */}
                       <div className="flex items-center justify-center lg:justify-end pr-8 lg:pr-16">
                         <div className="w-full lg:w-4/5 h-[80vh] relative">
-                          {/* Back layer (4th image) */}
-                          <div className="absolute inset-0 translate-x-2 translate-y-[-1px] rotate-3 opacity-15">
-                            <Image
-                              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                              alt="Leadership"
-                              width={600}
-                              height={800}
+                          {project.slug === "ai-roleplay" ? (
+                            // Video for AI Roleplay project
+                            <video
+                              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//role_play_marketing_1.webm"
+                              loop
+                              autoPlay
+                              muted
                               className="w-full h-full object-cover rounded-lg"
-                            />
-                          </div>
-                          
-                          {/* Third layer */}
-                          <div className="absolute inset-0 -translate-x-1.5 translate-y-2 -rotate-2.5 opacity-25">
-                            <Image
-                              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                              alt="Leadership"
-                              width={600}
-                              height={800}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          </div>
-                          
-                          {/* Second layer */}
-                          <div className="absolute inset-0 translate-x-1 translate-y-[-0.75px] rotate-1.5 opacity-40">
-                            <Image
-                              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                              alt="Leadership"
-                              width={600}
-                              height={800}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          </div>
-                          
-                          {/* Front layer (main image) */}
-                          <div className="absolute inset-0 -translate-x-0.5 translate-y-0.5 -rotate-0.75 opacity-100">
-                            <Image
-                              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                              alt="Leadership"
-                              width={600}
-                              height={800}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          </div>
+                              poster=""
+                              preload="metadata"
+                            >
+                              Your browser does not support the video tag.
+                            </video>
+                          ) : (
+                            // Stacked images for other projects
+                            <>
+                              {/* Back layer (4th image) */}
+                              <div className="absolute inset-0 translate-x-2 translate-y-[-1px] rotate-3 opacity-15">
+                                <Image
+                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+                                  alt="Leadership"
+                                  width={600}
+                                  height={800}
+                                  className="w-full h-full object-cover rounded-lg"
+                                />
+                              </div>
+                              
+                              {/* Third layer */}
+                              <div className="absolute inset-0 -translate-x-1.5 translate-y-2 -rotate-2.5 opacity-25">
+                                <Image
+                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+                                  alt="Leadership"
+                                  width={600}
+                                  height={800}
+                                  className="w-full h-full object-cover rounded-lg"
+                                />
+                              </div>
+                              
+                              {/* Second layer */}
+                              <div className="absolute inset-0 translate-x-1 translate-y-[-0.75px] rotate-1.5 opacity-40">
+                                <Image
+                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+                                  alt="Leadership"
+                                  width={600}
+                                  height={800}
+                                  className="w-full h-full object-cover rounded-lg"
+                                />
+                              </div>
+                              
+                              {/* Front layer (main image) */}
+                              <div className="absolute inset-0 -translate-x-0.5 translate-y-0.5 -rotate-0.75 opacity-100">
+                                <Image
+                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+                                  alt="Leadership"
+                                  width={600}
+                                  height={800}
+                                  className="w-full h-full object-cover rounded-lg"
+                                />
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
                       
@@ -375,7 +373,7 @@ export default function HomePage() {
             Personal Recommendations
           </h3>
           <p className="text-xl sm:text-2xl md:text-3xl lg:text-[1.5rem] xl:text-[1.8rem] font-medium text-[#FAF2E8]/80 mb-8 sm:mb-12 lg:mb-16 leading-tight text-center">
-            Here's some nice words from my previous colleagues and team.
+            Here&apos;s some nice words from my previous colleagues and team.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-16 lg:mb-20">
@@ -386,7 +384,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">"</div>
+              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
               <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
                 Darragh is an exceptional product design director who consistently delivers innovative solutions. His strategic thinking and attention to detail have been invaluable to our team.
               </blockquote>
@@ -400,7 +398,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">"</div>
+              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
               <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
                 Working with Darragh was a game-changer for our design process. He has an incredible ability to balance user needs with business objectives.
               </blockquote>
@@ -414,9 +412,9 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">"</div>
+              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
               <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Darragh's leadership style is both inspiring and effective. He knows how to bring out the best in his team while delivering exceptional results.
+                Darragh&apos;s leadership style is both inspiring and effective. He knows how to bring out the best in his team while delivering exceptional results.
               </blockquote>
               <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— Emma Rodriguez, Design Director</cite>
             </motion.div>
@@ -428,9 +426,9 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">"</div>
+              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
               <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Darragh's strategic vision and execution skills are unmatched. He transformed our product design approach and significantly improved our user experience.
+                Darragh&apos;s strategic vision and execution skills are unmatched. He transformed our product design approach and significantly improved our user experience.
               </blockquote>
               <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— David Thompson, VP of Product</cite>
             </motion.div>
