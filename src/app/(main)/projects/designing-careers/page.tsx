@@ -53,9 +53,13 @@ export default function DesigningCareersProjectPage() {
 
           {/* Hero Video/Image Placeholder */}
           <div className="mb-8 sm:mb-12 lg:mb-16">
-            <div className="w-full h-96 bg-[#CCE0D9] rounded-lg shadow-lg flex items-center justify-center">
-              <p className="text-[#242424] text-xl font-medium">Hero Video/Image Coming Soon</p>
-            </div>
+            <Image
+              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//IC4.png"
+              alt="Designing Careers Hero Image"
+              width={1200}
+              height={800}
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
           </div>
         </div>
 

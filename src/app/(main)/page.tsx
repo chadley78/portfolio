@@ -12,7 +12,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [animatedWords, setAnimatedWords] = useState<string[]>([]);
   const [showH3, setShowH3] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const words = useMemo(() => ["Obsessed", "with", "impact"], []);
 
@@ -51,15 +50,6 @@ export default function HomePage() {
   }, [words]);
 
   useEffect(() => {
-    // Ticker animation for testimonials
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 10000); // Change every 10 seconds
-
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-  useEffect(() => {
     async function fetchProjects() {
       setProjects([
         {
@@ -80,7 +70,7 @@ export default function HomePage() {
           description: "How User-Centered Design Scaled a B2B Learning Platform from $5M to $500M",
           content: "Project content here",
           categories: ["B2B Design", "Product Design", "UX Research", "Leadership", "Growth"],
-          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Skill%20Insights%201.png"
+          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Hand%20and%20iPhone%2016%20Pro.png"
         },
         {
           id: 6,

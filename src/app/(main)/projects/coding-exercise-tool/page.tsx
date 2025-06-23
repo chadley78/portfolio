@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import CategoryPill from "@/components/CategoryPill";
-import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import Image from 'next/image';
+import CategoryPill from '@/components/CategoryPill';
+import { useEffect, useRef, useState } from 'react';
 
 export default function CodingExerciseToolProjectPage() {
   const projectData = {
@@ -19,12 +18,12 @@ export default function CodingExerciseToolProjectPage() {
         text: "Udemy offers a powerful combination of video based teaching and embedded practice. But our original coding tool had not kept up with user expectations. Instructors often bypassed it for third party platforms. Learners struggled with a basic interface that did not match the complexity of what they were trying to learn. We knew we could do better, and we knew that doing so would unlock growth in one of our highest potential verticals."
       },
       {
-        title: "The Project Goals",
+        title: "What Success Looks Like",
         text: "With our product and engineering partners, we defined three clear goals to anchor the project:\n\n1. Increase instructor adoption by redesigning the creation flow with built in support and flexibility\n2. Enhance learner engagement through a modern, guided, and rewarding practice experience\n3. Reclaim usage lost to external tools by offering a compelling, integrated solution instructors would want to use"
       },
       {
         title: "The Process",
-        text: "We approached this as a two phase design effort, learner first, then instructor facing, anchored in research, co design, and continuous feedback.\n\nWe began with a heuristic evaluation of the legacy tool and reviewed existing documentation and internal insights. Internal testing with 35 Udemy engineers revealed usability pain points and frustrations. Competitor benchmarking helped us position Udemy's opportunity in the coding education space. Instructor surveys, embedded in the platform, surfaced core issues such as tool complexity, poor learner experience, and lack of feedback mechanisms.\n\nTo generate early solutions, I led a three day design sprint with the team. We explored the idea of providing a pool of prebuilt coding exercises. But when we tested this with real instructors, the feedback was unanimous. They wanted to build their own, tailored to their teaching goals. The real problem was not content. It was workflow, guidance, and learner experience. This insight shaped everything that followed.\n\nWe shifted focus and invited instructors into the process. Alongside our UX researcher, I ran one to one participatory sessions, capturing how instructors design exercises and surfacing their feature ideas. We used structured sessions in Miro to map their journeys, sketch the ideal learner experience, and co prioritize features.\n\nIn parallel, I brought in Udemy's learning science team to align design with proven pedagogy. They introduced the backwards design framework, ensuring exercises started from clear learning objectives. Their involvement grounded our decisions in evidence and gave the tool long term instructional credibility.\n\nCertain edge cases emerged during design reviews that required domain expertise beyond my reach. I organized co design working sessions with engineers, allowing us to collaboratively prototype solutions for complex logic or scenarios. These sessions accelerated delivery and built empathy and buy in across the team.\n\nAt the end of each sprint, I facilitated interactive design reviews with stakeholders from product, engineering, marketing, and learning. We reviewed prototypes together, collected feedback, and made decisions collaboratively. This kept the team aligned and momentum high.\n\nWe released in phases, starting with the learner experience and then gradually rolling out the instructor tool in beta to selected courses. Throughout, we gathered data via Fullstory, in product feedback, and usability testing, improving usability and layering in moments of delight."
+        text: "We approached this as a two phase design effort, learner first, then instructor facing, anchored in research, co design, and continuous feedback.\n\nWe began with a heuristic evaluation of the legacy tool and reviewed existing documentation and internal insights. Internal testing with 35 Udemy engineers revealed usability pain points and frustrations. Competitor benchmarking helped us position Udemy's opportunity in the coding education space. Instructor surveys, embedded in the platform, surfaced core issues such as tool complexity, poor learner experience, and lack of feedback mechanisms.\n\nTo generate early solutions, the team led a three day design sprint with the team. We explored the idea of providing a pool of prebuilt coding exercises. But when we tested this with real instructors, the feedback was unanimous. They wanted to build their own, tailored to their teaching goals. The real problem was not content. It was workflow, guidance, and learner experience. This insight shaped everything that followed.\n\nWe shifted focus and invited instructors into the process. Alongside our UX researcher, our lead designer ran one to one participatory sessions, capturing how instructors design exercises and surfacing their feature ideas. We used structured sessions in Miro to map their journeys, sketch the ideal learner experience, and co prioritize features.\n\nIn parallel, we brought in Udemy's learning science team to align design with proven pedagogy. They introduced the backwards design framework, ensuring exercises started from clear learning objectives. Their involvement grounded our decisions in evidence and gave the tool long term instructional credibility.\n\nCertain edge cases emerged during design reviews that required domain expertise beyond my reach. We organized co-design working sessions with engineers, allowing us to collaboratively prototype solutions for complex logic or scenarios. These sessions accelerated delivery and built empathy and buy in across the team.\n\nAt the end of each sprint, we facilitated interactive design reviews with stakeholders from product, engineering, marketing, and learning. We reviewed prototypes together, collected feedback, and made decisions collaboratively. This kept the team aligned and momentum high.\n\nWe released in phases, starting with the learner experience and then gradually rolling out the instructor tool in beta to selected courses. Throughout, we gathered data via Fullstory, in product feedback, and usability testing, improving usability and layering in moments of delight."
       },
       {
         title: "The Solution",
@@ -32,10 +31,84 @@ export default function CodingExerciseToolProjectPage() {
       },
       {
         title: "The Impact",
-        text: "By keeping our original goals in focus and listening closely to users at every stage, we delivered meaningful, measurable impact:\n\n• Three times increase in courses using coding exercises\n• Two times increase in total coding exercises created\n• Over 80 percent CSAT for both learners and instructors\n• Instructors who had previously avoided the tool became vocal advocates, citing simplicity, effectiveness, and joy\n• Learners described the tool as motivating, confidence building, and key to understanding course material\n\nWe did not just improve a feature. We reignited its purpose."
+        text: "By keeping our original goals in focus and listening closely to users at every stage, we delivered meaningful, measurable impact:\n\n• 300% increase in courses using coding exercises\n• 200% increase in total coding exercises created\n• Over 80 percent CSAT for both learners and instructors\n• Instructors who had previously avoided the tool became vocal advocates, citing simplicity, effectiveness and almost all of the off platform tools they had used gradually became redundant.\n• Learners described the tool as motivating, confidence building, and key to understanding course material\n\nWe did not just improve a feature. We reignited its purpose."
       }
     ]
   };
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayClick = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = 60;
+      video.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        console.log('Play failed');
+      });
+    }
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let isInitialized = false;
+
+    const handleTimeUpdate = () => {
+      if (!isInitialized) return;
+      
+      // Start at 1 minute (60 seconds)
+      if (video.currentTime < 60) {
+        video.currentTime = 60;
+      }
+      // End at 1 minute 20 seconds (80 seconds) and loop back to 1 minute
+      if (video.currentTime >= 80) {
+        video.currentTime = 60;
+      }
+    };
+
+    const handleCanPlay = () => {
+      if (!isInitialized) {
+        isInitialized = true;
+        // Set initial time to 1 minute when video can play
+        video.currentTime = 60;
+        // Try to play the video
+        video.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {
+          // If autoplay fails, we'll handle it gracefully
+          console.log('Autoplay prevented by browser');
+        });
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      // Ensure video is ready
+      if (video.readyState >= 1) {
+        handleCanPlay();
+      }
+    };
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+    };
+  }, []);
 
   // Function to render formatted content with bullet points and line breaks
   const renderFormattedContent = (text: string) => {
@@ -109,10 +182,29 @@ export default function CodingExerciseToolProjectPage() {
           </div>
 
           {/* Hero Video/Image Placeholder */}
-          <div className="mb-8 sm:mb-12 lg:mb-16">
-            <div className="w-full h-96 bg-[#CCE0D9] rounded-lg shadow-lg flex items-center justify-center">
-              <p className="text-[#242424] text-xl font-medium">Hero Video/Image Coming Soon</p>
-            </div>
+          <div className="mb-8 sm:mb-12 lg:mb-16 relative">
+            <video
+              ref={videoRef}
+              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//CodingExercise.webm"
+              muted
+              className="w-full h-auto rounded-lg shadow-lg"
+              preload="metadata"
+            >
+              Your browser does not support the video tag.
+            </video>
+            {!isPlaying && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
+                <button
+                  onClick={handlePlayClick}
+                  className="bg-white bg-opacity-90 hover:bg-opacity-100 text-black px-6 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2"
+                >
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                  Play Demo (1:00-1:20)
+                </button>
+              </div>
+            )}
           </div>
         </div>
 

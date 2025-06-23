@@ -79,7 +79,7 @@ export default function Header({ transparent = false }: HeaderProps) {
                 className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
               >
                 <div className="py-2">
-                  {projects.map((project, index) => (
+                  {projects.map((project) => (
                     <Link
                       key={project.slug}
                       href={`/projects/${project.slug}`}
