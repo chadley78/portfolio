@@ -122,8 +122,25 @@ export default function AIRoleplayProjectPage() {
 
           {/* Detailed Content Sections */}
           <div className="space-y-8 sm:space-y-12">
-            {projectData.content.map((section, index) => (
-              <div key={index}>
+            {/* Problem and Solution side by side on large screens */}
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {projectData.content.slice(0, 2).map((section, index) => (
+                  <div key={index}>
+                    <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">
+                      {section.title}
+                    </h4>
+                    <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                      {section.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Remaining sections */}
+            {projectData.content.slice(2).map((section, index) => (
+              <div key={index + 2}>
                 {section.title === "Design Strategy: Scale, Realism, and Differentiation" ? (
                   <div className="max-w-4xl mx-auto">
                     <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">

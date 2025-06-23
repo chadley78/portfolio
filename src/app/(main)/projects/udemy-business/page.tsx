@@ -91,8 +91,8 @@ export default function UdemyBusinessProjectPage() {
           {/* Hero Video/Image Placeholder */}
           <div className="mb-8 sm:mb-12 lg:mb-16">
             <Image
-              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//SkillInsights.png"
-              alt="Udemy Business Skill Insights"
+              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Desktop-Brand-Announcement-960x400-1.gif"
+              alt="Udemy Business Brand Announcement"
               width={1200}
               height={800}
               className="w-full h-auto rounded-lg shadow-lg"

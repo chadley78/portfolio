@@ -12,8 +12,28 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [animatedWords, setAnimatedWords] = useState<string[]>([]);
   const [showH3, setShowH3] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const words = useMemo(() => ["Obsessed", "with", "impact"], []);
+
+  const testimonials = [
+    {
+      quote: "I worked with Darragh from 2018 until I left Udemy in 2025. He was one of the most empathetic, genuine and supportive managers I've had. He consistently advocated for design, created space for us to thrive, and led with clarity and integrity.",
+      author: "Mary, Senior Product Design Manager"
+    },
+    {
+      quote: "It's not every day you get to work with someone like Darragh. From the beginning, his energy, empathy, and strategic mindset had a clear and positive impact on our team. He played a key role in building the design team in Dublin — not just by hiring great people, but by creating a culture where everyone felt supported and encouraged to grow.",
+      author: "Kris, Staff Product Designer"
+    },
+    {
+      quote: "I had the absolute pleasure of working with Darragh, and I can confidently say he is one of the most inspiring leaders I've ever met. He wasn't just a manager to his own team—he was a true leader for the entire organization. Darragh genuinely cares about people. He always made time to support, guide, and uplift those around him, regardless of title or department.",
+      author: "Nilay, Senior Product Designer"
+    },
+    {
+      quote: "Having Darragh as a manager truly transformed my career. From day one, I admired his authentic communication style and dedication to building a design team that's not only super talented but also focused and collaborative.",
+      author: "Camila, Senior Product Designer"
+    }
+  ];
 
   useEffect(() => {
     // Animate words one by one
@@ -29,6 +49,15 @@ export default function HomePage() {
     };
     setTimeout(animateWords, 150);
   }, [words]);
+
+  useEffect(() => {
+    // Ticker animation for testimonials
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 10000); // Change every 10 seconds
+
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -51,36 +80,26 @@ export default function HomePage() {
           description: "How User-Centered Design Scaled a B2B Learning Platform from $5M to $500M",
           content: "Project content here",
           categories: ["B2B Design", "Product Design", "UX Research", "Leadership", "Growth"],
-          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Skill%20Insights%201.png"
         },
         {
-          id: 1,
-          created_at: "2024-01-01T00:00:00Z",
-          title: "Cotopaxi",
-          slug: "project-alpha",
-          description: "Marketing Mix Modeling Unlocks 20%+ New Business Growth",
+          id: 6,
+          created_at: "2024-01-06T00:00:00Z",
+          title: "Designing Careers",
+          slug: "designing-careers",
+          description: "Building a Better Growth Path at Udemy",
           content: "Project content here",
-          categories: ["Leadership", "Strategy"],
-          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+          categories: ["Design Leadership", "Career Development", "Team Building", "Process Design"],
+          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//team.jpg"
         },
         {
-          id: 3,
-          created_at: "2024-01-03T00:00:00Z",
-          title: "Project Gamma",
-          slug: "project-gamma",
-          description: "Customer experience optimization",
+          id: 7,
+          created_at: "2024-01-07T00:00:00Z",
+          title: "Reimagining Practice at Udemy",
+          slug: "coding-exercise-tool",
+          description: "Becoming Developers favourite place to learn how to code",
           content: "Project content here",
-          categories: ["UX", "Analytics"],
-          thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-        },
-        {
-          id: 4,
-          created_at: "2024-01-04T00:00:00Z",
-          title: "Project Delta",
-          slug: "project-delta",
-          description: "Market expansion strategy",
-          content: "Project content here",
-          categories: ["Growth", "Marketing"],
+          categories: ["Product Design", "UX Research", "Design Leadership", "Learning Design", "Design Process"],
           thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
         }
       ]);
@@ -239,7 +258,7 @@ export default function HomePage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
                       {/* Image Section - Centered in first 50% */}
                       <div className="flex items-center justify-center lg:justify-end pr-8 lg:pr-16">
-                        <div className="w-full lg:w-4/5 h-[80vh] relative">
+                        <Link href={`/projects/${project.slug}`} className="w-full lg:w-4/5 h-[80vh] relative block">
                           {project.slug === "ai-roleplay" ? (
                             // Video for AI Roleplay project
                             <video
@@ -254,54 +273,16 @@ export default function HomePage() {
                               Your browser does not support the video tag.
                             </video>
                           ) : (
-                            // Stacked images for other projects
-                            <>
-                              {/* Back layer (4th image) */}
-                              <div className="absolute inset-0 translate-x-2 translate-y-[-1px] rotate-3 opacity-15">
-                                <Image
-                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                                  alt="Leadership"
-                                  width={600}
-                                  height={800}
-                                  className="w-full h-full object-cover rounded-lg"
-                                />
-                              </div>
-                              
-                              {/* Third layer */}
-                              <div className="absolute inset-0 -translate-x-1.5 translate-y-2 -rotate-2.5 opacity-25">
-                                <Image
-                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                                  alt="Leadership"
-                                  width={600}
-                                  height={800}
-                                  className="w-full h-full object-cover rounded-lg"
-                                />
-                              </div>
-                              
-                              {/* Second layer */}
-                              <div className="absolute inset-0 translate-x-1 translate-y-[-0.75px] rotate-1.5 opacity-40">
-                                <Image
-                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                                  alt="Leadership"
-                                  width={600}
-                                  height={800}
-                                  className="w-full h-full object-cover rounded-lg"
-                                />
-                              </div>
-                              
-                              {/* Front layer (main image) */}
-                              <div className="absolute inset-0 -translate-x-0.5 translate-y-0.5 -rotate-0.75 opacity-100">
-                                <Image
-                                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
-                                  alt="Leadership"
-                                  width={600}
-                                  height={800}
-                                  className="w-full h-full object-cover rounded-lg"
-                                />
-                              </div>
-                            </>
+                            // Single image for all other projects
+                            <Image
+                              src={project.thumbnail_url || ""}
+                              alt={project.title}
+                              width={600}
+                              height={800}
+                              className="w-full h-full object-cover rounded-lg"
+                            />
                           )}
-                        </div>
+                        </Link>
                       </div>
                       
                       {/* Content Section - Second 50% */}
@@ -312,9 +293,11 @@ export default function HomePage() {
                           transition={{ duration: 0.6, delay: 0.4 }}
                           viewport={{ once: true }}
                         >
-                          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-bold text-[#242424] mb-4 leading-tight">
-                            {project.title}
-                          </h3>
+                          <Link href={`/projects/${project.slug}`} className="block">
+                            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-bold text-[#242424] mb-4 leading-tight hover:text-[#009688] transition-colors duration-300">
+                              {project.title}
+                            </h3>
+                          </Link>
                         </motion.div>
                         
                         <motion.div
@@ -367,71 +350,33 @@ export default function HomePage() {
       </section>
 
       {/* Personal Recommendations Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-[#4D6B99]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.9rem] font-bold text-[#FAF2E8] mb-4 sm:mb-6 lg:mb-8 leading-tight text-center">
+      <section className="py-8 sm:py-12 lg:py-16 relative" style={{ backgroundColor: '#334238' }}>
+        {/* Content with highlighted text */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.9rem] font-bold text-[#FAF2E8] mb-8 sm:mb-12 lg:mb-16 leading-tight text-center">
             Personal Recommendations
           </h3>
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-[1.5rem] xl:text-[1.8rem] font-medium text-[#FAF2E8]/80 mb-8 sm:mb-12 lg:mb-16 leading-tight text-center">
-            Here&apos;s some nice words from my previous colleagues and team.
-          </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-16 lg:mb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
-              <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Darragh is an exceptional product design director who consistently delivers innovative solutions. His strategic thinking and attention to detail have been invaluable to our team.
-              </blockquote>
-              <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— Sarah Johnson, Senior Product Manager</cite>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
-              <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Working with Darragh was a game-changer for our design process. He has an incredible ability to balance user needs with business objectives.
-              </blockquote>
-              <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— Michael Chen, UX Lead</cite>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
-              <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Darragh&apos;s leadership style is both inspiring and effective. He knows how to bring out the best in his team while delivering exceptional results.
-              </blockquote>
-              <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— Emma Rodriguez, Design Director</cite>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="text-8xl sm:text-9xl lg:text-[8rem] xl:text-[10rem] font-bold text-[#FAF2E8]/20 absolute -top-4 -left-2">&quot;</div>
-              <blockquote className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#FAF2E8] leading-relaxed mb-6 relative z-10">
-                Darragh&apos;s strategic vision and execution skills are unmatched. He transformed our product design approach and significantly improved our user experience.
-              </blockquote>
-              <cite className="text-lg sm:text-xl font-semibold text-[#FAF2E8]/80 block">— David Thompson, VP of Product</cite>
-            </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                  delay: index * 0.2
+                }}
+                viewport={{ once: true }}
+                className="p-6 lg:p-8"
+              >
+                <blockquote className="text-base lg:text-lg font-medium text-[#FAF2E8] leading-relaxed mb-4">
+                  {testimonial.quote}
+                </blockquote>
+                <cite className="text-sm lg:text-base font-semibold text-[#CCE561] block">— {testimonial.author}</cite>
+              </motion.div>
+            ))}
           </div>
 
           <motion.div
@@ -439,13 +384,13 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="text-center mt-12"
           >
             <Link 
-              href="https://linkedin.com/in/darraghflood" 
+              href="https://www.linkedin.com/in/darragh-flood" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 sm:px-10 py-4 sm:py-5 bg-[#FAF2E8] text-[#242424] font-semibold text-lg sm:text-xl rounded-lg hover:bg-[#FAF2E8]/90 transition-colors duration-200"
+              className="inline-flex items-center px-8 sm:px-10 py-4 sm:py-5 bg-[#FF9C94] text-[#242424] font-semibold text-lg sm:text-xl rounded-lg hover:bg-[#FF9C94]/90 transition-colors duration-200"
             >
               Read More on LinkedIn
             </Link>
