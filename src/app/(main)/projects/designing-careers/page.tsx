@@ -9,7 +9,6 @@ export default function DesigningCareersProjectPage() {
     categories: ["Design Leadership", "Career Development", "Team Building", "Process Design"],
     heroVideo: "", // Will be added later
     subtitle: "Building a Better Growth Path at Udemy",
-    summary: "How I Led the Creation of a Product Design Career Ladder That Designers Actually Believed In",
     description: "Every designer wants to grow, but only if they believe the path ahead is real, relevant, and achievable. At Udemy, our team had inherited a career framework known as RASKL, an acronym for Results, Autonomy, Scope, Knowledge, and Leadership. While conceptually solid, it didn't speak to the day-to-day work of product designers. It felt abstract, overly general, and worse, disconnected from the actual craft and nuance of design.",
     content: [
       {

@@ -13,7 +13,8 @@ export default function MainLayout({
   const pathname = usePathname();
   const isProjectsPage = pathname?.startsWith('/projects/');
   const isContactPage = pathname === '/contact';
-  const isTransparentPage = isProjectsPage || isContactPage;
+  const isAboutPage = pathname === '/about';
+  const isTransparentPage = isProjectsPage || isContactPage || isAboutPage;
 
   // Scroll to top when pathname changes with a small delay to ensure animations trigger
   useEffect(() => {

@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import CategoryPill from '@/components/CategoryPill';
-import { useEffect, useRef, useState } from 'react';
 
 export default function CodingExerciseToolProjectPage() {
   const projectData = {
@@ -36,83 +35,63 @@ export default function CodingExerciseToolProjectPage() {
     ]
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handlePlayClick = () => {
-    const video = videoRef.current;
-    if (video) {
-      video.currentTime = 60;
-      video.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {
-        console.log('Play failed');
-      });
-    }
-  };
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let isInitialized = false;
-
-    const handleTimeUpdate = () => {
-      if (!isInitialized) return;
-      
-      // Start at 1 minute (60 seconds)
-      if (video.currentTime < 60) {
-        video.currentTime = 60;
-      }
-      // End at 1 minute 20 seconds (80 seconds) and loop back to 1 minute
-      if (video.currentTime >= 80) {
-        video.currentTime = 60;
-      }
-    };
-
-    const handleCanPlay = () => {
-      if (!isInitialized) {
-        isInitialized = true;
-        // Set initial time to 1 minute when video can play
-        video.currentTime = 60;
-        // Try to play the video
-        video.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {
-          // If autoplay fails, we'll handle it gracefully
-          console.log('Autoplay prevented by browser');
-        });
-      }
-    };
-
-    const handleLoadedMetadata = () => {
-      // Ensure video is ready
-      if (video.readyState >= 1) {
-        handleCanPlay();
-      }
-    };
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    video.addEventListener('canplay', handleCanPlay);
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('play', handlePlay);
-    video.addEventListener('pause', handlePause);
-
-    return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-      video.removeEventListener('canplay', handleCanPlay);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('play', handlePlay);
-      video.removeEventListener('pause', handlePause);
-    };
-  }, []);
-
   // Function to render formatted content with bullet points and line breaks
-  const renderFormattedContent = (text: string) => {
+  const renderFormattedContent = (text: string, sectionTitle?: string) => {
     const paragraphs = text.split('\n\n');
+    
+    // Special handling for Solution section
+    if (sectionTitle === "The Solution") {
+      const introText = paragraphs[0];
+      const learnersSection = paragraphs.find(p => p.startsWith('For learners:'));
+      const instructorsSection = paragraphs.find(p => p.startsWith('For instructors:'));
+      
+      return (
+        <div className="space-y-6">
+          {/* Intro text */}
+          <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+            {introText}
+          </p>
+          
+          {/* Side by side sections on larger screens */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* For Learners */}
+            <div className="bg-white/50 p-6 rounded-lg">
+              <h5 className="text-lg sm:text-xl md:text-2xl lg:text-[1.1rem] xl:text-[1.3rem] font-bold text-[#242424] mb-4">
+                For learners:
+              </h5>
+              <div className="space-y-3">
+                {learnersSection?.split('\n').filter(line => line.startsWith('•')).map((line, index) => (
+                  <div key={index} className="flex items-start">
+                    <span className="text-blue-600 mr-3 mt-1 text-lg">💻</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                      {line.substring(1).trim()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* For Instructors */}
+            <div className="bg-white/50 p-6 rounded-lg">
+              <h5 className="text-lg sm:text-xl md:text-2xl lg:text-[1.1rem] xl:text-[1.3rem] font-bold text-[#242424] mb-4">
+                For instructors:
+              </h5>
+              <div className="space-y-3">
+                {instructorsSection?.split('\n').filter(line => line.startsWith('•')).map((line, index) => (
+                  <div key={index} className="flex items-start">
+                    <span className="text-green-600 mr-3 mt-1 text-lg">🎯</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                      {line.substring(1).trim()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
     return (
       <div className="space-y-4">
         {paragraphs.map((paragraph, index) => {
@@ -125,7 +104,7 @@ export default function CodingExerciseToolProjectPage() {
                   if (line.startsWith('•')) {
                     return (
                       <div key={lineIndex} className="flex items-start">
-                        <span className="text-[#242424] mr-3 mt-1 text-lg">•</span>
+                        <span className="text-[#CCE561] mr-3 mt-1 text-lg">✓</span>
                         <span className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
                           {line.substring(1).trim()}
                         </span>
@@ -155,9 +134,23 @@ export default function CodingExerciseToolProjectPage() {
             );
           } else {
             return (
-              <p key={index} className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
-                {paragraph}
-              </p>
+              <div key={index}>
+                <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                  {paragraph}
+                </p>
+                {/* Add workshop image after 3rd paragraph in Process section */}
+                {sectionTitle === "The Process" && index === 2 && (
+                  <div className="mt-8 mb-8">
+                    <Image
+                      src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//workshop.png"
+                      alt="Workshop session during the design process"
+                      width={800}
+                      height={600}
+                      className="w-full h-auto rounded-lg"
+                    />
+                  </div>
+                )}
+              </div>
             );
           }
         })}
@@ -183,28 +176,14 @@ export default function CodingExerciseToolProjectPage() {
 
           {/* Hero Video/Image Placeholder */}
           <div className="mb-8 sm:mb-12 lg:mb-16 relative">
-            <video
-              ref={videoRef}
-              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//CodingExercise.webm"
-              muted
-              className="w-full h-auto rounded-lg shadow-lg"
-              preload="metadata"
-            >
-              Your browser does not support the video tag.
-            </video>
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
-                <button
-                  onClick={handlePlayClick}
-                  className="bg-white bg-opacity-90 hover:bg-opacity-100 text-black px-6 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2"
-                >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  Play Demo (1:00-1:20)
-                </button>
-              </div>
-            )}
+            <iframe
+              src="https://www.youtube.com/embed/Sj9fkCGoWVs?autoplay=1&mute=1&loop=1&playlist=Sj9fkCGoWVs"
+              title="Coding Exercise Tool Demo"
+              className="w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-lg"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
         </div>
 
@@ -256,8 +235,20 @@ export default function CodingExerciseToolProjectPage() {
                     <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">
                       {section.title}
                     </h4>
+                    {/* Add new IDE image for Solution section */}
+                    {section.title === "The Solution" && (
+                      <div className="mb-8">
+                        <Image
+                          src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//newide.png"
+                          alt="New IDE interface for the coding exercise tool"
+                          width={1200}
+                          height={800}
+                          className="w-full h-auto rounded-lg"
+                        />
+                      </div>
+                    )}
                     <div className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
-                      {renderFormattedContent(section.text)}
+                      {renderFormattedContent(section.text, section.title)}
                     </div>
                   </div>
                 )}

@@ -11,13 +11,8 @@ export default function UdemyBusinessProjectPage() {
     categories: ["B2B Design", "Product Design", "UX Research", "Leadership", "Growth"],
     heroVideo: "", // Will be added later
     subtitle: "How User-Centered Design Scaled a B2B Learning Platform from $5M to $500M",
-    summary: "Designing for Growth: The Udemy Business Journey",
-    description: "When I joined Udemy Business as its first product designer, the B2B offering was still in its infancy, a promising idea in a company known for B2C scale. Over the next decade, I helped lead its transformation into a global learning platform serving thousands of organizations and millions of users. Eventually, I became Director of Product Design, overseeing the full experience from the first click by a buyer to the ongoing engagement of learners in the enterprise.",
+    description: "When I joined Udemy Business as its first product designer, the B2B offering was still in its infancy, a promising idea in a company known for B2C scale. Over the next decade, I helped lead its transformation into a global learning platform serving thousands of organizations and millions of users. Eventually, I became Director of Product Design, overseeing the full experience from the first click by a buyer to the ongoing engagement of learners in the enterprise. This wasn't just about adding features. It was about deeply understanding the motivations, friction points, and expectations across three distinct user types: buyers, admins, and learners and using design as the connective tissue that aligned them.",
     content: [
-      {
-        title: "The Challenge: Build a B2B Powerhouse from the Ground Up",
-        text: "This wasn't just about adding features. It was about deeply understanding the motivations, friction points, and expectations across three distinct user types: buyers, admins, and learners and using design as the connective tissue that aligned them."
-      },
       {
         title: "Designing at the Intersection of Complexity and Opportunity",
         text: "What makes B2B design fascinating is also what makes it hard: the overlapping but often conflicting needs of stakeholders. Buyers care about ROI and business alignment but often lack visibility into user needs. Admins demand efficiency and flexibility and reject anything that disrupts their workflow. Learners want ease, clarity, and progress, but will disengage the moment friction appears. Our breakthrough came from recognizing that end-user success drives everything including retention, upsell, and long-term platform growth. That belief became our north star."
@@ -200,7 +195,7 @@ export default function UdemyBusinessProjectPage() {
                     <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed mb-8">
                       {section.text}
                     </p>
-                    <div className="w-full">
+                    <div className="w-full mb-8">
                       <Image
                         src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Lets%20Do%20It.png"
                         alt="User Research Strategy"
@@ -209,6 +204,9 @@ export default function UdemyBusinessProjectPage() {
                         className="w-full h-auto rounded-lg shadow-lg"
                       />
                     </div>
+                    <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                      We also turned on the hosepipe of user feedback from Day 1. We incentivised CSM to provide us with with everything our customers were saying about the product in Slack. This exposed us to so much useful information which we used to shape and prioritise our regular UX research.
+                    </p>
                   </div>
                 ) : (
                   <div className="max-w-4xl mx-auto">

@@ -11,7 +11,6 @@ export default function AIRoleplayProjectPage() {
     categories: ["AI/ML", "Product Design", "UX Research", "Leadership"],
     heroVideo: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//role_play_marketing_1.webm",
     subtitle: "Roleplay feature design perfectly meets market needs. Hits 12 month target in 3 weeks ",
-    summary: "Driving Soft Skill Development Through Realistic AI Conversations",
     description: "At Udemy, I led product design for an ambitious initiative: to transform how learners practice and build communication, management, and sales skills. The goal? Deliver a deeply immersive, AI-powered roleplay experience that would simulate real-world conversations, provide instant feedback, and help users grow in confidence and capability.",
     content: [
       {
@@ -72,6 +71,9 @@ export default function AIRoleplayProjectPage() {
     }
   }, [isActualInView]);
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentDesignStrategyIndex, setCurrentDesignStrategyIndex] = useState(0);
+
   return (
     <div className="min-h-screen bg-[#FAF2E8]">
       <article className="w-full">
@@ -95,7 +97,7 @@ export default function AIRoleplayProjectPage() {
               loop
               autoPlay
               muted
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto rounded-[15px]"
               poster=""
               preload="metadata"
             >
@@ -149,14 +151,68 @@ export default function AIRoleplayProjectPage() {
                     <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed mb-8">
                       {section.text}
                     </p>
+                    
+                    {/* Design Strategy Image Gallery */}
                     <div className="w-full">
-                      <Image
-                        src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Screenshot%202025-06-18%20at%2021.45.34.png"
-                        alt="Design Strategy Screenshot"
-                        width={400}
-                        height={300}
-                        className="w-full h-auto rounded-lg shadow-lg"
-                      />
+                      <div className="relative">
+                        <div className="h-96 sm:h-[500px] lg:h-[600px] relative overflow-hidden rounded-lg">
+                          <motion.div
+                            className="flex h-full"
+                            animate={{ x: `${-100 * currentDesignStrategyIndex}%` }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                          >
+                            <div className="w-full h-full flex-shrink-0 relative">
+                              <Image
+                                src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//voice%20play.png"
+                                alt="Voice Play"
+                                fill
+                                className="object-contain rounded-[15px]"
+                              />
+                            </div>
+                            <div className="w-full h-full flex-shrink-0 relative">
+                              <Image
+                                src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//filled.png"
+                                alt="Filled"
+                                fill
+                                className="object-contain rounded-[15px]"
+                              />
+                            </div>
+                          </motion.div>
+                        </div>
+
+                        {/* Navigation buttons */}
+                        <button
+                          onClick={() => setCurrentDesignStrategyIndex(Math.max(0, currentDesignStrategyIndex - 1))}
+                          disabled={currentDesignStrategyIndex === 0}
+                          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-[#242424] p-3 rounded-full shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          </svg>
+                        </button>
+                        <button
+                          onClick={() => setCurrentDesignStrategyIndex(Math.min(1, currentDesignStrategyIndex + 1))}
+                          disabled={currentDesignStrategyIndex === 1}
+                          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-[#242424] p-3 rounded-full shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+
+                        {/* Dots indicator */}
+                        <div className="flex justify-center mt-4 space-x-2">
+                          {[0, 1].map((index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrentDesignStrategyIndex(index)}
+                              className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                                currentDesignStrategyIndex === index ? 'bg-[#242424]' : 'bg-[#242424]/30'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : section.title === "A Critical Course Correction" ? (
@@ -173,7 +229,7 @@ export default function AIRoleplayProjectPage() {
                                   alt="Old Style Design"
                                   width={600}
                                   height={800}
-                                  className="w-full h-auto object-contain rounded-lg"
+                                  className="w-full h-auto object-contain rounded-[15px]"
                                 />
                               </div>
                             </div>
@@ -238,6 +294,110 @@ export default function AIRoleplayProjectPage() {
             ))}
           </div>
         </div>
+
+        {/* Image Gallery Section */}
+        <section className="py-16 sm:py-20 lg:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Desktop: Show all images side by side */}
+            <div className="hidden lg:flex gap-8 lg:gap-12">
+              <div className="flex-1 h-96 lg:h-[500px] relative">
+                <Image
+                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Hint.png"
+                  alt="AI Roleplay Hint"
+                  fill
+                  className="object-contain rounded-[15px]"
+                />
+              </div>
+              <div className="flex-1 h-96 lg:h-[500px] relative">
+                <Image
+                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Learner%20talks.png"
+                  alt="Learner Talks"
+                  fill
+                  className="object-contain rounded-[15px]"
+                />
+              </div>
+              <div className="flex-1 h-96 lg:h-[500px] relative">
+                <Image
+                  src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Learner%20feedback.png"
+                  alt="Learner Feedback"
+                  fill
+                  className="object-contain rounded-[15px]"
+                />
+              </div>
+            </div>
+
+            {/* Mobile/Tablet: Carousel with navigation */}
+            <div className="lg:hidden">
+              <div className="relative">
+                <div className="h-96 sm:h-[400px] relative overflow-hidden rounded-lg">
+                  <motion.div
+                    className="flex h-full"
+                    animate={{ x: `${-100 * currentImageIndex}%` }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className="w-full h-full flex-shrink-0 relative">
+                      <Image
+                        src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Hint.png"
+                        alt="AI Roleplay Hint"
+                        fill
+                        className="object-contain rounded-[15px]"
+                      />
+                    </div>
+                    <div className="w-full h-full flex-shrink-0 relative">
+                      <Image
+                        src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Learner%20talks.png"
+                        alt="Learner Talks"
+                        fill
+                        className="object-contain rounded-[15px]"
+                      />
+                    </div>
+                    <div className="w-full h-full flex-shrink-0 relative">
+                      <Image
+                        src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Learner%20feedback.png"
+                        alt="Learner Feedback"
+                        fill
+                        className="object-contain rounded-[15px]"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Navigation buttons */}
+                <button
+                  onClick={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
+                  disabled={currentImageIndex === 0}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-[#242424] p-3 rounded-full shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setCurrentImageIndex(Math.min(2, currentImageIndex + 1))}
+                  disabled={currentImageIndex === 2}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-[#242424] p-3 rounded-full shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                {/* Dots indicator */}
+                <div className="flex justify-center mt-4 space-x-2">
+                  {[0, 1, 2].map((index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                        currentImageIndex === index ? 'bg-[#242424]' : 'bg-[#242424]/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </article>
     </div>
   );
