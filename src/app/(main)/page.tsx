@@ -210,10 +210,10 @@ export default function HomePage() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="w-full min-h-screen flex items-center bg-[#FAF2E8]"
                   >
-                    <div className="w-full">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
                         {/* Image Section - Centered in first 50% */}
-                        <div className="flex items-center justify-center lg:justify-end pr-8 lg:pr-16">
+                        <div className="flex items-center justify-center lg:justify-end lg:pr-16">
                           <Link href={`/projects/${project.slug}`} className="w-full lg:w-4/5 h-[80vh] relative block">
                             {project.slug === "ai-roleplay" ? (
                               // Video for AI Roleplay project

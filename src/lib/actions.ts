@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
 import { Project } from "@/types";
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 type FormState = {
   error: string | null;
@@ -40,6 +43,25 @@ export async function submitContactForm(prevState: FormState, formData: FormData
   if (error) {
     console.error('Supabase error:', error);
     return { error: 'Failed to submit message. Please try again.', success: null };
+  }
+
+  // Send email notification
+  try {
+    await resend.emails.send({
+      from: 'Portfolio Contact <noreply@yourdomain.com>',
+      to: [process.env.CONTACT_EMAIL || 'your-email@example.com'],
+      subject: `New Contact Form Submission from ${name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    });
+  } catch (emailError) {
+    console.error('Email error:', emailError);
+    // Don't fail the form submission if email fails
   }
   
   revalidatePath('/contact');

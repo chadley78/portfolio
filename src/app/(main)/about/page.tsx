@@ -29,17 +29,17 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FAF2E8]">
       {/* Header Section - Same style as project pages */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-12 lg:py-16">
         <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[6rem] xl:text-[8.7rem] font-black text-[#242424] uppercase tracking-tight leading-none mb-4 sm:mb-6 text-center">
           About Me
         </h1>
       </div>
 
       {/* Expertise Areas Section */}
-      <section className="py-8 sm:py-12 lg:py-16">
+      <section className="py-4 sm:py-12 lg:py-16">
         <div className="w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+            <div className="space-y-4 sm:space-y-12 lg:space-y-16">
               {expertiseAreas.map((area, index) => (
                 <motion.div
                   key={index}
@@ -51,12 +51,12 @@ export default function AboutPage() {
                     delay: index * 0.1
                   }}
                   viewport={{ once: true, margin: "-100px" }}
-                  className="w-full min-h-screen flex items-center bg-[#FAF2E8]"
+                  className="w-full min-h-[50vh] sm:min-h-screen flex items-center bg-[#FAF2E8]"
                 >
                   <div className="w-full">
-                    <div className="grid grid-cols-1 min-h-screen">
+                    <div className="grid grid-cols-1 min-h-[50vh] sm:min-h-screen">
                       {/* Content Section - Full width */}
-                      <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+                      <div className="p-4 sm:p-12 lg:p-16 flex flex-col justify-center">
                         <motion.div
                           initial={{ opacity: 0, x: 100 }}
                           whileInView={{ opacity: 1, x: 0 }}

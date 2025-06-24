@@ -79,7 +79,7 @@ export default function AIRoleplayProjectPage() {
       <article className="w-full">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[6rem] xl:text-[8.7rem] font-black text-[#242424] uppercase tracking-tight leading-none mb-4 sm:mb-6">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[6rem] xl:text-[8.7rem] font-black text-[#242424] uppercase tracking-tight leading-none mb-4 sm:mb-6">
             {projectData.title}
           </h1>
           
@@ -213,13 +213,23 @@ export default function AIRoleplayProjectPage() {
                   </div>
                 ) : section.title === "A Critical Course Correction" ? (
                   <div className="w-full bg-[#CCE0D9]">
-                    <div className="max-w-4xl mx-auto">
+                    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
                       <div className="w-full min-h-screen flex items-center">
                         <div className="w-full">
-                          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-                            {/* Image Section - Centered in first 50% */}
-                            <div className="flex items-center justify-center lg:justify-end pr-8 lg:pr-16">
-                              <div className="w-full lg:w-3/5 relative">
+                          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen gap-8 lg:gap-16">
+                            {/* Content Section - First on mobile, second on desktop */}
+                            <div className="flex flex-col justify-center order-1 lg:order-2">
+                              <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">
+                                {section.title}
+                              </h4>
+                              <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
+                                {section.text}
+                              </p>
+                            </div>
+                            
+                            {/* Image Section - Second on mobile, first on desktop */}
+                            <div className="flex items-center justify-center order-2 lg:order-1">
+                              <div className="w-full relative">
                                 <Image
                                   src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//old%20stule.webp"
                                   alt="Old Style Design"
@@ -228,16 +238,6 @@ export default function AIRoleplayProjectPage() {
                                   className="w-full h-auto object-contain rounded-[15px]"
                                 />
                               </div>
-                            </div>
-                            
-                            {/* Content Section - Second 50% */}
-                            <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
-                              <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">
-                                {section.title}
-                              </h4>
-                              <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed">
-                                {section.text}
-                              </p>
                             </div>
                           </div>
                         </div>
