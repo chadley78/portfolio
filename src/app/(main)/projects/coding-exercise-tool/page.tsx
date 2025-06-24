@@ -10,7 +10,7 @@ export default function CodingExerciseToolProjectPage() {
     heroVideo: "", // Will be added later
     subtitle: "Becoming Developers favourite place to learn how to code",
     summary: "A Strategic Redesign to Drive Adoption, Engagement, and Learning Outcomes",
-    description: "As the design leader for Udemy's Coding Exercise Tool, I guided a cross functional team through the complete transformation of one of our platform's most overlooked features.,
+    description: "As the design leader for Udemy's Coding Exercise Tool, I guided a cross functional team through the complete transformation of one of our platform's most overlooked features.",
     content: [
       {
         title: "The Challenge",
