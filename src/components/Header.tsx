@@ -26,7 +26,7 @@ export default function Header({ transparent = false }: HeaderProps) {
       title: "AI Roleplay", 
       slug: "ai-roleplay",
       subtitle: "Revolutionizing Learning Through AI-Powered Roleplay Experiences",
-      thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+      thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//voice%20play.png"
     },
     { 
       title: "Designing Careers", 
@@ -38,7 +38,7 @@ export default function Header({ transparent = false }: HeaderProps) {
       title: "Reimagining Practice at Udemy", 
       slug: "coding-exercise-tool",
       subtitle: "Becoming Developers favourite place to learn how to code",
-      thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//Figure.png"
+      thumbnail_url: "https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//IDE.png"
     }
   ];
 
@@ -201,14 +201,14 @@ export default function Header({ transparent = false }: HeaderProps) {
               <Link
                 href="/about"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="font-bold text-xl text-[#242424] hover:text-[#009688] transition-colors block mb-4"
+                className="block font-bold text-lg text-[#242424] hover:text-[#009688] transition-colors mb-4"
               >
                 About Me
               </Link>
               <Link
                 href="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="font-bold text-xl text-[#242424] hover:text-[#009688] transition-colors"
+                className="block font-bold text-lg text-[#242424] hover:text-[#009688] transition-colors"
               >
                 Contact
               </Link>
