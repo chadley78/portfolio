@@ -69,10 +69,6 @@ export default function DesigningCareersProjectPage() {
               {projectData.subtitle}
             </h2>
             
-            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[1.4rem] xl:text-[1.9rem] font-bold text-[#242424] mb-4 sm:mb-6 leading-tight">
-              {projectData.summary}
-            </h3>
-            
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-[0.815rem] xl:text-[1rem] font-normal text-[#242424] leading-relaxed mb-8 sm:mb-12">
               {projectData.description}
             </p>
