@@ -182,7 +182,7 @@ export default function HomePage() {
             <motion.div
               className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[3rem] font-medium text-[#242424]/80 mb-12 sm:mb-16 lg:mb-20 leading-tight max-w-4xl mx-auto text-center"
             >
-              As a product design leader I&apos;ve had the joy (and challenge) of building, evolving, rethinking, and sometimes completely reinventing products, teams, and processes. It&apos;s the messy, creative, deeply human part of the work—and it&apos;s what I love most.
+              As a product design leader I&apos;ve had the joy (and challenge) of building, evolving, rethinking, and sometimes completely reinventing products, teams, and processes. It&apos;s the messy, creative, deeply human part of the work and it&apos;s what I love most.
             </motion.div>
           </div>
           
