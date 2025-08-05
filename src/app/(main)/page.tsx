@@ -156,7 +156,7 @@ export default function HomePage() {
           {/* Hero Video */}
           <div className="w-full lg:w-3/5 h-[80vh] lg:h-[80vh] relative">
             <video
-              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//abstractimpact.mp4"
+              src="https://ulethzcxykotndiahpmm.supabase.co/storage/v1/object/public/portfolio-assets//living_portfolio.mp4"
               loop
               autoPlay
               muted
